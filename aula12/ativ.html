@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade de soma de botões</title>
+
+</head>
+<body>
+    <input type="number" id="num1" size="40px" placeholder="Informe um número">
+    <br>
+    <input type="number" id="num2" size="40px" placeholder="Informe outro número">
+    <br>
+    <button id="botao" onclick="soma()">Fazer a soma</button>
+
+    <h1>Resultada da sua adição</h1>
+
+    <script>
+
+        function soma(){
+            let num1 = Number(document.querySelector("#num1").value);
+            let num2 = Number(document.querySelector("#num2").value);
+            let soma = num1 + num2
+            let resultado = document.querySelector("h1");
+            if (soma < 50){
+                resultado.style.color= "blue";
+                resultado.innerText = "Seu Resultado é " + soma;
+                soma.style.color = "black";
+                
+
+            }
+            else{
+                 resultado.style.color= "red";
+                 resultado.innerText = "Seu Resultado é " + soma;
+            }
+
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade</title>
+
+    <style>
+        input{
+            padding:10px;
+        }
+    </style>
+</head>
+<body style="text-align: center; font-family: Arial, Helvetica, sans-serif;">
+    <h1>Página personalizada com JavaScript básico :) </h1>
+    <p id="paragrafo">Por Favor digite seu nome lindão e a sua cor favorita pq você é uma pessoa muito especia</p>
+    <label>Informe seu Nome abaixo</label>
+    
+    <input type= "text" id="nome">
+    
+    <label >Informe a sua cor favorita (Em Inglês)</label>
+    
+    <input type="text" id="cor">
+   
+    <button id="msg" onclick="clicou()">Personalizar a página</button>
+
+    <script>
+        function clicou(){
+        let botao =document.querySelector("#msg");
+        console.log(botao);
+        alert("Faremos a personalização da Página");
+
+        let name =document.querySelector("#nome").value;
+        console.log(nome);
+        alert("Bem Vindo " + name);
+
+          let h1 = document.querySelector("h1");
+            h1.innerHTML = "Gostou da personalização Gatão?";
+
+            let coress = document.querySelector("#cor").value;
+            h1.style.color = coress;
+            console.log(coress);
+
+            let paragrafo = document.querySelector("#paragrafo");
+            paragrafo.textContent = "página alterada com sucesso";
+            paragrafo.style.fontSize = "24px";
+            let body = document.querySelector("body");
+            body.style.backgroundColor = "lightgray";
+
+            let botao2 = document.querySelector("#msg");
+            botao2.textContent = "Personalização feita"     
+        }
+    </script>
+
+</body>
+</html>

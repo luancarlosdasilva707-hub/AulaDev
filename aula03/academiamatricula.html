@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="p1">Matrícula academia PPS</title>
+    <style>
+        h1{color:goldenrod;}
+        h2{
+            color: goldenrod;
+        }
+        h3{color: goldenrod;}
+        .p1{color: gold;}
+        .p2, #p5{
+            color: aquamarine
+            ;
+
+        }
+        .p3, #p5{color: gold;}
+    </style>
+</head>
+<body>
+    <form action="login.php" method="post">
+    <h3>Área de cadastro</h3>
+    <label id="p4">Nome <br>
+        <input type="text" name="nome" id="nome">
+    </label>
+    <br>
+    <label id="p5">Idade <br>
+        <input type="number" name="Idade" id="idade">
+    </label>
+    <br>
+    <label class="p2">Email <br>
+        <input type="email" name="email" id="email">
+
+    </label>
+    <br>
+    <label class="p2">Telefone <br>
+        <input type="tel" name="telefone" id="telefone">
+    </label>
+    <br>
+    <label class="p1">Modalidade Escolhida <br>
+        <select name="selecionado" >
+            <option value="R">Musculação</option>
+            <option value="T">Crosfit</option>
+            <option value="D">funcional</option>
+            <option value="S">pilates</option>
+            <option value="F">Plano Básico</option>
+            <option value="X">Plano Atleta</option>
+            <option value="Z">Plano Premium</option>
+        </select>
+    </label>
+    <br>
+    <Label class="p1"> Horário Preferido <br>
+        <input type="time" name ="hora" id="hora">
+    </Label>
+    <br>
+    <input type="checkbox" name="confirmado" id="confirmado">
+    <label for="confirmado">Confirmo os dados acima</label>
+    <br>
+    <input type="submit" value="Fazer cadastro">
+
+</form>
+
+    
+</body>
+</html>

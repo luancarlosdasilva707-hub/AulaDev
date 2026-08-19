@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperVasco - Portal de Notícias</title>
+    <style>
+        /* Variables para organizar as cores do clube */
+        :root {
+            --cor-principal: #000000;
+            --cor-secundaria: #ffffff;
+            --cor-destaque: #e21a22; /* Vermelho da Cruz de Malta */
+            --cor-fundo: #f8f9fa;
+            --cor-texto-esquecido: #6c757d;
+            --transicao-suave: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Reset básico e fontes modernizadas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--cor-fundo);
+            color: #212529;
+            line-height: 1.6;
+        }
+
+        /* Header com a faixa diagonal estilizada */
+        header {
+            background: linear-gradient(135deg, #000000 70%, #1a1a1a 100%);
+            color: var(--cor-secundaria);
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            border-bottom: 5px solid var(--cor-destaque);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            font-weight: 900;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #ccc;
+            font-style: italic;
+        }
+
+        /* Menu de Navegação Moderno */
+        nav {
+            background-color: #111;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav ul li a {
+            display: block;
+            color: var(--cor-secundaria);
+            text-decoration: none;
+            padding: 15px 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: var(--transicao-suave);
+        }
+
+        nav ul li a:hover {
+            background-color: var(--cor-destaque);
+            color: white;
+        }
+
+        /* Seção Principal de Notícias */
+        .container-noticias {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .titulo-secao {
+            font-size: 2rem;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 15px;
+            border-left: 5px solid var(--cor-destaque);
+        }
+
+        /* Grid de Notícias - Muito mais responsivo que o Flexbox puro */
+        .grid-noticias {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* Card da Notícia Premium */
+        .card-noticia {
+            background-color: var(--cor-secundaria);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transicao-suave);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .card-noticia:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+
+        /* Container da Imagem com efeito de Zoom */
+        .noticia-imagem-box {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+
+        .noticia-imagem-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transicao-suave);
+        }
+
+        .card-noticia:hover .noticia-imagem-box img {
+            transform: scale(1.05);
+        }
+
+        /* Tag de Categoria por cima da foto */
+        .badge-categoria {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--cor-principal);
+            color: var(--cor-secundaria);
+            padding: 5px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 20px;
+            border: 1px solid var(--cor-destaque);
+        }
+
+        /* Conteúdo do Texto */
+        .noticia-corpo {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .noticia-corpo h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--cor-principal);
+            line-height: 1.3;
+            transition: var(--transicao-suave);
+        }
+
+        .card-noticia:hover .noticia-corpo h3 {
+            color: var(--cor-destaque);
+        }
+
+        .noticia-corpo p {
+            color: #495057;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1; /* Empurra o botão de ler mais sempre para o rodapé do card */
+        }
+
+        /* Link de "Ler Mais" estilizado */
+        .btn-ler-mais {
+            color: var(--cor-principal);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transicao-suave);
+        }
+
+        .btn-ler-mais:hover {
+            color: var(--cor-destaque);
+            padding-left: 5px;
+        }
+
+        /* Rodapé do site */
+        footer {
+            background-color: var(--cor-principal);
+            color: #aaa;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            border-top: 3px solid var(--cor-destaque);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Vasco da Gama</h1>
+        <p>"Vasco não é time não, é seleção"</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Títulos</a></li>
+            <li><a href="#">História</a></li>
+            <li><a href="#">Jogadores</a></li>
+        </ul>
+    </nav>
+
+    <main class="container-noticias">
+        <h2 class="titulo-secao">Últimas Notícias</h2>
+        
+        <div class="grid-noticias">
+
+            <article class="card-noticia">
+                <div class="noticia-imagem-box">
+                    <span class="badge-categoria">Mercado da Bola</span>
+                    <img src="vegetti-botfogo.webp" alt="Pablo Vegetti anunciado no Cerro Porteño">
+                </div>
+                <div class="noticia-corpo">
+                    <h3>Despedida do Pirata: Saída do Vegetti</h3>
+                    <p>Pablo Vegetti deixou o Vasco no dia 17 de janeiro de 2026, data em que o atacante foi oficialmente anunciado como novo reforço do Cerro Porteño.</p>
+                    <a href="#" class="btn-ler-mais">Ler notícia completa →</a>
+                </div>
+            </article>
+
+            <article class="card-noticia">
+                <div class="noticia-imagem-box">
+                    <span class="badge-categoria">Sul-Americana</span>
+                    <img src="olimpiaxvasco.jpg" alt="Vasco x Olimpia preparação">
+                </div>
+                <div class="noticia-corpo">
+                    <h3>Vasco X Olimpia: Noite de Copa!</h3>
+                    <p>O Gigante da Colina jogará hoje às 19:00 horas contra o Olimpia, valendo a liderança isolada do Grupo G da Copa Sul-Americana.</p>
+                    <a href="#" class="btn-ler-mais">Ler notícia completa →</a>
+                </div>
+            </article>
+
+            <article class="card-noticia">
+                <div class="noticia-imagem-box">
+                    <span class="badge-categoria">Cria da Colina</span>
+                    <img src="rayan.webp" alt="Rayan brilhando na Europa">
+                </div>
+                <div class="noticia-corpo">
+                    <h3>Rayan na Seleção Principal</h3>
+                    <p>Ex-Vasco, o atacante Rayan brilha na Europa vestindo a camisa do Bournemouth e carimba sua vaga na convocação da Seleção Principal.</p>
+                    <a href="#" class="btn-ler-mais">Ler notícia completa →</a>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 Portal Vascão. Feito para a maior e mais fiel torcida do mundo.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulários</title>
+</head>
+<body>
+    <h3>Área de Cadastro</h3>
+    <!--Action para onde vai os dados,method tem o GET e o POST, O GET passa pela URl como par e o POST vai internamente, ideal para telas de login para passar a senha-->
+    <form action="login.php" method="get">
+
+
+    </form>
+    <form action="login.php" method="get">
+        <label>Nome do Usuário</label>
+        <br>
+        <input type="text" name="usuario" id="usuario">
+            <br>
+            <label >senha
+                <br>
+                <input type="password" name="senha" id="senha">
+            </label>
+            <br>
+            <label>masculino
+                
+                <input type="radio" name="sexo" id="sexo" >
+            </label>
+            <label>Feminino</label>
+            <input type="radio" name="sexo" id="sexo">
+            <br>
+            <label> Email</label>
+            <br>
+            <input type="email" name="email" id="email"><!--VAlida o @-->
+            <br>
+            <label>Cor</label>
+            <br>
+            <input type="color" name="color" id="color">
+            <br>
+            <label>Data</label>
+            <br>
+            <input type="date" name="data" id="data">
+            <br>
+            <input type="time" name="time" id="time">
+            <br>
+            <label>Número</label>
+            <br>
+            <input type="number" name="numero" id="numero">
+            <br>
+            <label>Telefone</label>
+            <br>
+            <input type="tel" name="telefone" id="telefone">
+            <br>
+            <label>Range</label>
+            <input type="range" name="range" id="range">
+            <br>
+            <label>Data e Hora</label>
+            <br>
+            <input type="datetime-local" name="datahora" id="datahora">
+            <br>
+            <label>URL</label>
+            <br>
+            <input type="url" name="url" id="url">
+            <br>
+            <label>Semana</label>
+            <br>
+            <input type="week" name="semana" id="semana">
+            <br>
+            <br>
+            <input type="checkbox" name="confirmado" id="confirmado">
+            <label for="confirmado">Confirmo os dados acima</label>
+            <br>
+            <input type="submit" value="Fazer Cadastro">
+
+
+    
+    </form>
+    
+    
+    
+</body>
+</html>

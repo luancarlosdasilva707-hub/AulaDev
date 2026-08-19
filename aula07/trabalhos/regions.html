@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>/Regions</title> 
+    <style>
+        body
+        {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: blueviolet;
+        }
+        .container
+        {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 20px;
+            justify-content: center;
+        }
+        .card
+        {
+            background-color: rgb(233, 1, 117);
+            color:white;
+            font-size: 24px;
+            text-align: center;
+            padding: 40px 0;
+            flex: 1 1 calc(25% - 32px);
+            box-sizing: border-box;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0,0, 0.15);
+            transition: transform 0.3s ease;
+          
+        }
+        .card:hover
+        {
+            transform: scale(1.05);
+        }
+        /*Tablets (2 colunas)*/
+        @media (max-width:1023px)
+        {
+            .card 
+            {
+                flex: 1 1 calc(50% - 32px);
+            }
+        }
+        @media(max-width: 767px)
+        {
+            .card
+            {
+                flex: 1 1 100%;
+                background-color: black;
+            }
+        }
+         .flexbox
+        {
+           
+            display: flex;
+            gap: 100px;
+
+        }
+        .regions{
+            background-color: rgb(233, 1, 117);
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            box-sizing: content-box;
+            border-radius: 8px;
+            box-shadow: rgba(105, 13, 13);
+            transition:background 0.3s ease ;
+            transition: transform 0.3s ease;
+            
+            
+        }
+         .regions:hover
+        {
+            transform: scale(1.05);}
+        .objects{
+             background-color: rgb(233, 1, 117);
+            padding: 20px;
+            text-align: center;
+            flex:1;
+            box-sizing: content-box;
+            border-radius: 8px;
+            box-shadow: rgba(rgb(255, 0, 0), rgb(128, 0, 0), rgb(255, 0, 0), 0);
+            transition:background 0.3s ease ;
+            transition: transform 0.3s ease;
+           
+        }
+         .objects:hover
+        {
+            transform: scale(1.05);}
+        .suport{
+             background-color: rgb(233, 1, 117);
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            box-sizing: content-box;
+            border-radius: 8px;
+            box-shadow: rgb(105, 13, 13);
+            transition:background 0.3s ease ;
+            transition: transform 0.3s ease;
+        
+        }
+         .suport:hover
+        {
+            transform: scale(1.05);}
+
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; padding: 20px;">Regiões</h1>
+    <div class="container">
+        <div class="card"><img src="Outskirts_Safari_Icon.png">
+        <br>Outskirts</div>
+        <div class="card"><img src="Industrial_Complex_Safari_Icon.png"><br>Industrial Complex</div>
+        <div class="card"><img src="Drainage_System_Safari_Icon.png"><br> Drainage System</div>
+        <div class="card"><img src="Garbage_Wastes_Safari_Icon.png"><br> Garbage Wastes</div>
+        <div class="card"><img src="Shoreline_Safari_Icon.png"><br> Shoreline</div>
+        <div class="card"><img src="Shaded_Citadel_Safari_Icon.png"><br> Shaded Citadel</div>
+        <div class="card"><img src="The_Exterior_Safari_Icon.png"><br> The Exterior</div>
+        <div class="card"><img src="Five_Pebbles_Safari_Icon.png"><br> Five Pebbles</div>
+        <div class="card"><img src="Chimney_Canopy_Safari_Icon.png"><br> Chimney Canopy</div>
+        <div class="card"><img src="Sky_Islands_Safari_Icon.png"><br> Sky Islands</div>
+        <div class="card"><img src="Farm_Arrays_Safari_Icon.png"><br> Farm Arrays</div>
+        <div class="card"><img src="Subterranean_Safari_Icon.png"><br> Subterranean</div>
+        
+        <div class="pirulipa">
+        <h2 style="text-align: center;">Outras Páginas</h2>
+        
+            <div class="flexbox">
+                
+            <div class="regions">
+                 <a href="home.html">
+                <img src="Hunter_portrait.png" width="100px">
+            </a>
+           <br>Index
+            </div>
+            <div class="objects">
+                <a href="objects.html">
+                    <img src="Objects_gallery_icon.png" width="100px">
+                </a>
+                <br>Objetos
+
+            </div>
+            <div class="suport">
+                <a href="form.html"><img src="formulario.png" width="100px"></a>
+                <br>Suporte
+              
+            </div>
+           
+           </div>
+    
+        
+
+    </div>
+    
+</body>
+</html>

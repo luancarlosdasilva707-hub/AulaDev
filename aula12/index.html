@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sla</title>
+</head>
+<body>
+    <h1>Olá Mundo</h1>
+    
+    <br>
+    <input id="senha" type="text" size="40" placeholder="Informe a Senha">
+    <br>
+    <img src="C:\Users\1051506\.vscode\AulaDev\aula09\2026_FIFA_World_Cup_emblem.svg.webp" alt="" width="100px">
+    <br>
+    <button id="mostrar" onclick="mostrarsenha()">Ocultar senha</button>
+    <button id="botao" onclick="clicou()">Mudar cor</button>
+
+    <script>
+
+        let corAtual = " ";
+        function clicou(){
+            document.body.style.backgroundColor = "green";
+            //exemplos de cores aleatórias
+            const cores =["lightblue", "lightgreen", "lightpink" , "lightyellow" , "lightgray"];
+            const corAletoria = cores[Math.floor (Math.random() * cores.length)];
+           
+            
+            if (corAtual==corAletoria){
+                clicou()
+            }
+            else {
+                 document.body.style.backgroundColor = corAletoria
+                 corAtual = corAletoria
+            }
+            
+
+           
+        }
+
+        function mostrarsenha(){
+            let input = document.querySelector("#senha");
+            let mostrar = document.querySelector("#mostrar");
+            if(input.type==="password") {
+                input.type = "text";
+                mostrar.innerText ="Ocultar Senha";
+                input.placeholder = "Agora sua senha está oculta";
+                let img =document.querySelector("img");
+                img.style.width = "100px"
+
+            }
+            else {
+                input.type = "password";
+                mostrar.innerText = "Mostar Senha";
+                input.placeholder = "Agora sua senha não está oculta";
+                let img =document.querySelector("img");
+                img.style.width = "200px"
+
+            }
+
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+@charset "utf-8";
+.header
+{
+    background-color: red;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: black;
+    
+}
+.lindo
+{
+    background-color: black;
+   
+    height: 10px;
+    font-size: 1px;
+    
+}
+.menu {
+    display:flex;
+    flex-direction: row;
+    gap: 10px;
+     padding: 10px;
+    font-size: 18px;
+    justify-content: center;
+    background-color:rgb(29, 8, 212)
+}
+#titles
+{
+    display: flex;
+    flex: 1;
+    bottom:auto;
+    
+    
+  
+    font-size: 18px;
+    
+
+}
+#history
+{
+    display:flex;
+    flex: 1;
+    
+    
+    font-size: 18px;
+    
+}
+#clubes
+{
+    display: flex;
+    flex: 1;
+    
+    
+    font-size: 18px;
+    
+}
+
+ 
+ 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrutura CSS Externo</title>
+    <style>
+        h1 /*estou alterando na tag*/
+        {
+            color: blueviolet;
+        }
+        ol li /* estou alterando a cor do li dentro da ol*/
+        {
+            color: brown;
+        }
+        #corP /*estou alterando no id ou apelido*/
+        {
+            color: chartreuse;
+        }
+        .decora, #p2{ /*quando possui vírgula ele passa para os dois*/
+            color: chocolate;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 18px;
+
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Aula de CSS</h1>
+    <br>
+    <ol>
+        <li style="color: aqua;">Azul</li> <!--teste-->
+        <li id="corP">Preto</li>
+        <li>Amarelo</li>
+    </ol>
+   
+    <h1>Outro Texto</h1>
+    <ul class="decora">
+        <li>Carro</li>
+        <li>Moto</li>
+        <li>Barco</li>
+    </ul>
+    <p class="decora">A aula de hoje esrtá bem legal</p>
+    <p id="p2">texto2</p>
+
+    
+</body>
+</html>

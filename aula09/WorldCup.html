@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copa do Mundo</title>
+    <style>
+        body{
+            background-color: whitesmoke;
+        }
+        .top{
+            display: flex;
+            background-color: green;
+            flex: 1 1 calc(25% - 32px);
+            box-sizing: border-box;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px black;
+            transition: transform 0.3s ease;
+            justify-content: center;
+            
+        }
+        .img{
+            text-align: center;
+            align-items: center;
+        }
+        .container{
+            background-color: red;
+            display: flex;
+            flex: 1 1 calc(25% - 32px);
+            box-sizing: border-box;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px black;
+            padding: 50px;
+            margin-bottom:40px;
+        }
+        .azul{background-color: blue;
+            display: flex;
+            flex: 1 1 calc(25% - 32px);
+            box-sizing: border-box;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px black;
+            flex-direction: column;
+            align-items: center;                                  
+        }
+         @media (max-width:1023px)
+        {
+            .top
+            {
+                flex: 1 1 calc(50% - 32px);
+                background-color: red;
+            }
+            .container{flex:1 1 calc(50% - 32px);
+                        background: blue;    
+            }
+            .azul{
+                flex:1 1 calc(50%  - 32px);
+                background-color: green;
+            }
+        }
+        @media(max-width: 767px)
+        {
+            .top
+            {
+                flex: 1 1 100%;
+                background-color: blue;
+            }
+            .container
+            {
+                flex: 1 1 100%;
+                background-color: green;
+            }
+            .azul
+            {
+                flex: 1 1 100%;
+                background-color: red;
+            }
+        }
+            
+
+    </style>
+</head>
+<body>
+    <div class="top">
+        <H1>Copa do Mundo</H1>
+    </div>
+    <div class="img">
+        <img src="2026_FIFA_World_Cup_emblem.svg.webp">
+    </div>
+    <div class="container">
+        <h2>
+            A Copa do Mundo é o maior torneio internacional de futebol do planeta. Organizado pela FIFA a cada quatro anos, o evento reúne seleções nacionais de todo o mundo para competir pelo título de campeã mundial, sendo um dos maiores e mais assistidos espetáculos esportivos globais.
+        </h2>
+        <br>
+    </div>
+    
+    <div class="azul">
+    <h2>Princpais seleções</h2>
+        
+        <ul>
+            <li>França</li>
+            <li>Argentina</li>
+            <li>Brasil</li>
+            <li>Portugal</li>
+            <li>Inglaterra</li>
+            <li>Espanha</li>
+        </ul>
+</div>
+    <div class="borabil">
+        <h2>
+            Para ver as estatísticas do torneio<a href="WorldCupTable.html" target="_blank"> Clique Aqui</a ></h2>
+            <h2>Para fazer seu cadastro e estar ciente de todas as informções da Copa do mundo <a href="WolrdCupForm.html" target="_blank">Clique Aqui </a></h2>
+    </div>
+   
+    
+</body>
+</html>

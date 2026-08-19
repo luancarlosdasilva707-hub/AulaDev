@@ -1,0 +1,121 @@
+body {
+    background-color: whitesmoke;
+    
+
+}
+.top{
+    text-align: center;
+    
+}
+.table{
+    justify-items: center;
+    transition-duration: 1ms;
+}
+.table tr:hover
+    {
+         transform: scale(1.05);
+         background-color: black;
+         color: white;
+    }
+.emphasis{
+   text-align: center;
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 20px;
+}
+.emphasis h2{
+    margin-bottom: 20px;
+    border-radius: 8px;
+   
+}
+.containerCards{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.card2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+    
+}
+
+.card2 img {
+    width: 100%;
+    max-width: 200px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 16px;
+     box-shadow: black;
+}
+.card2 p{
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px;
+}
+
+
+.card {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  text-align: center;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 180px; 
+}
+
+
+.card img {
+  width: 100%;
+  max-width: 120px;
+  height: 120px;
+  object-fit: contain;}
+
+.h2dosquintodosinferno h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+          
+.card:hover
+    {
+         transform: scale(1.05);
+    }
+        /*Tablets (2 colunas)*/
+    @media (max-width:1023px)
+    {
+        .card 
+        {
+            flex: 1 1 calc(50% - 32px);
+        }
+    }
+    @media(max-width: 767px)
+    {
+        .card
+        {
+            flex: 1 1 100%;
+            background-color: black;
+        }
+    }
+.contato{
+    text-align: center;
+}
+    

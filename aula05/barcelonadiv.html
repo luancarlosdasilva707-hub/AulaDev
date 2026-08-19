@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FC Barcelona</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#f4f4f4;
+      color:#222;
+    }
+
+    /* TOPO */
+    header{
+      background: linear-gradient(90deg, #A50044, #004D98);
+      color:white;
+      padding:20px;
+      text-align:center;
+    }
+
+    header h1{
+      font-size:40px;
+      margin-bottom:10px;
+    }
+
+    /* MENU */
+    nav{
+      background:#111;
+    }
+
+    nav ul{
+      display:flex;
+      justify-content:center;
+      list-style:none;
+      flex-wrap:wrap;
+    }
+
+    nav ul li{
+      margin:10px 20px;
+    }
+
+    nav ul li a{
+      color:white;
+      text-decoration:none;
+      font-weight:bold;
+      transition:0.3s;
+    }
+
+    nav ul li a:hover{
+      color:#FFD700;
+    }
+
+    /* BANNER */
+    .banner{
+      background:url('https://upload.wikimedia.org/wikipedia/commons/4/47/FC_Barcelona_%28crest%29.svg') no-repeat center;
+      background-size:200px;
+      height:300px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background-color:#004D98;
+      color:white;
+      text-align:center;
+    }
+
+    .banner h2{
+      background:rgba(0,0,0,0.6);
+      padding:15px;
+      border-radius:10px;
+      font-size:32px;
+    }
+
+    /* CONTEÚDO */
+    main{
+      padding:40px;
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .noticias{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:white;
+      border-radius:10px;
+      overflow:hidden;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+    }
+
+    .card img{
+      width:100%;
+      height:200px;
+      object-fit:cover;
+    }
+
+    .card-content{
+      padding:20px;
+    }
+
+    .card-content h3{
+      margin-bottom:10px;
+      color:#A50044;
+    }
+
+    /* RODAPÉ */
+    footer{
+      background:#111;
+      color:white;
+      text-align:center;
+      padding:20px;
+      margin-top:40px;
+    }
+
+    footer p{
+      margin:5px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPO -->
+  <header>
+    <h1>FC Barcelona</h1>
+    <p>Mais que um clube</p>
+  </header>
+
+  <!-- MENU -->
+  <nav>
+    <ul>
+      <li><a href="#">Início</a></li>
+      <li><a href="#">História</a></li>
+      <li><a href="#">Jogadores</a></li>
+      <li><a href="#">Notícias</a></li>
+      <li><a href="#">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- BANNER -->
+  <section class="banner">
+    <h2>Melhor da Espanha</h2>
+  </section>
+
+  <!-- CONTEÚDO -->
+  <main>
+    <h2 style="margin-bottom:20px;">Últimas Notícias</h2>
+
+    <section class="noticias">
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1200&auto=format&fit=crop" alt="Futebol">
+        <div class="card-content">
+          <h3>Barcelona vence clássico</h3>
+          <p>O Barça conquista mais uma vitória importante em partida emocionante.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=1200&auto=format&fit=crop" alt="Estádio">
+        <div class="card-content">
+          <h3>Camp Nou em reforma</h3>
+          <p>O estádio passa por modernização para oferecer uma experiência incrível aos torcedores.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=1200&auto=format&fit=crop" alt="Torcida">
+        <div class="card-content">
+          <h3>Torcida faz festa histórica</h3>
+          <p>Os torcedores do Barcelona lotaram as arquibancadas em grande celebração.</p>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer>
+    <p>© 2026 FC Barcelona Fan Site</p>
+    <p>Desenvolvido em HTML e CSS</p>
+  </footer>
+
+</body>
+</html>
