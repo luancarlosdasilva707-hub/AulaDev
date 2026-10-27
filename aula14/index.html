@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sla</title>
+    <style>
+        #titulo{
+            color: aquamarine;
+        }
+        .ativo {
+            background-color: yellow;
+        }
+
+    </style>
+</head>
+<body>
+    <h1 id="titulo">Bom Dia</h1>
+    <p class="texto">Está um belo dia hoje</p>
+    <p class="texto">2° paragrafo</p>
+    <p class="texto">3° paragarfo</p>
+    <label for="name">verificar: </label>
+    <input type="text" id="name">
+    <h2>Título Principal</h2>
+    <h2>Subtítulo A</h2>
+    <h2>Subtítulo B</h2>
+    <button>Botão 1</button>
+    <button>Botão 2</button>
+    <button>Botão 3</button>
+    <button>Botão 4</button>
+    <button>Botão 5</button>
+    <div id="caixa">Conteúdo</div>
+    <div id="caixa2" class="ativo">Conteúdo 2 </div>
+    
+    <script>
+        let titulo = document.getElementById("titulo");
+        console.log(titulo);
+
+        let textos = document.getElementsByClassName("texto");
+
+        for (let i = 0 ; i < textos.length; i++){
+            console.log(textos[i]);
+
+        }
+
+        let titulos = document.getElementsByTagName("h2");
+
+        console.log(titulos);
+
+        console.log(titulos.length);
+        let botoes = document.getElementsByTagName("button");
+        console.log(botoes.length);
+        const caixa = document.getElementById("caixa");
+
+        console.log(caixa);
+
+        caixa.classList.add("ativo");
+        const caixa2 = document.getElementById("caixa2");
+
+        console.log(caixa2);
+
+        caixa2.classList.remove("ativo");
+
+        
+                
+        
+    </script>
+</body>
+</html>

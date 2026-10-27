@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mini Loja - JavaScript</title>
+
+    <style>
+
+        * {
+            /* Inclui padding e borda no tamanho definido. */
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        header nav a:hover {
+            text-decoration: underline;
+            text-decoration-color: red;
+            transform: scale(1.15);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        /* GRID DOS PRODUTOS */
+
+        .produtos {
+            display: grid;
+            /* Divide o grid em 3 colunas proporcionais. */
+            grid-template-columns: repeat(3, 1fr);
+            /* Define o espaço entre os cards. */
+            gap: 20px;
+        }
+
+        .produto {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            /* Cria uma sombra suave no card. */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .produto img {
+            width: 100%;
+            height: 200px;
+            /* Preenche a área da imagem sem distorção. */
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .produto h3 {
+            margin: 15px 0 5px;
+        }
+
+        .preco {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px;
+        }
+
+        button {
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            /* Indica visualmente que o elemento é clicável. */
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btnAdicionar {
+            background: #222;
+            color: white;
+            width: 100%;
+        }
+
+        .btnAdicionar:hover {
+            background: #444;
+        }
+
+        /* CARRINHO */
+
+        .carrinho {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            /* Faz as bordas da tabela se unirem. */
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        td img {
+            width: 60px;
+            height: 60px;
+            /* Preenche a área da imagem sem distorção. */
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .quantidade button {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            background: #ddd;
+        }
+
+        .btnRemover {
+            background: #c62828;
+            color: white;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* RESPONSIVO */
+
+        /* Adapta o layout para telas menores. */
+        @media (max-width: 700px) {
+
+            .produtos {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th,
+            td {
+                padding: 5px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1 id="inicio">Loja do Zequinha</h1>
+        <p>A meiô loja da região</p>
+        <nav>
+        <a href="#inicio">Home</a>
+        <a href="#produtos">Produtos</a>
+        <a href="#carrinho">Carrinho</a>
+    </nav>
+    </header>
+
+    
+
+    <div class="container">
+        <h2>Nossas Outras Chuteiras</h2>
+        <div class="produtos">
+            <div class="produto">
+                <img  src="puma.png" alt="Puma">
+                <h2>Puma</h2>
+            </div>
+
+            <div class="produto">
+                <img src="nike.png" alt="Nike" style="object-fit: contain;">
+                <h2>Nike</h2> 
+            </div>
+
+             <div class="produto">
+                 <img src="adidas.jpg" alt="Adidas">
+                <h2>Adidas</h2>
+             </div>
+        </div>
+            
+    </div>
+
+
+    <div class="container">
+
+
+        <h2 id="produtos">Produtos</h2>
+
+        <div class="produtos" id="listaProdutos">
+
+            <!-- PRODUTO 1 -->
+
+            <div class="produto" >
+
+                <img
+                    src="speedFlowMessi.jpg"
+                    alt="adidas Chuteira Messi X Speedflow.1 Firm Ground - futebol unissex"
+                >
+
+                <h3>adidas Chuteira Messi X Speedflow.1 Firm Ground - futebol unissex</h3>
+
+                <p>Uma chuteira para quem quer dar Show!</p>
+
+                <p class="preco">
+                    R$ 4,487,90
+                </p>
+
+                <button
+                    class="btnAdicionar"
+                    onclick="adicionarProduto(1)"
+                >
+                    Adicionar ao carrinho
+                </button>
+
+            </div>
+
+
+            <!-- PRODUTO 2 -->
+
+            <div class="produto">
+
+                <img
+                    src="adidasPredator.jpg"
+                    alt="Chuteira Campo Língua Dobrável Predator Elite"
+                >
+
+                <h3>Chuteira Campo Língua Dobrável Predator Elite</h3>
+                <p>
+                    A chuteira perfeita para quem busca controle e precisão no campo.
+                </p>
+
+                <p class="preco">
+                    R$ 2,499,99
+                </p>
+
+                <button
+                    class="btnAdicionar"
+                    onclick="adicionarProduto(2)"
+                >
+                    Adicionar ao carrinho
+                </button>
+
+            </div>
+
+
+            <!-- PRODUTO 3 -->
+
+            <div class="produto">
+
+                <img
+                    src="nikeTIempo10.jpg"
+                    alt="Nike Tiempo 10 "
+                >
+
+                <h3>Nike Tiempo 10</h3>
+                <p>
+                    A Nike Tiempo 10 é a escolha ideal para jogadores que valorizam conforto e toque de bola.
+                </p>
+
+                <p class="preco">
+                    R$ 1,063,00
+                </p>
+
+                <button
+                    class="btnAdicionar"
+                    onclick="adicionarProduto(3)"
+                >
+                    Adicionar ao carrinho
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARRINHO -->
+
+        <div class="carrinho">
+
+            <h2 id="carrinho"> Carrinho</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Foto</th>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                        <th>Ação</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="carrinho">
+                    <!-- JavaScript irá inserir aqui -->
+                </tbody>
+
+            </table>
+
+
+            <div class="total">
+
+                Total:
+                R$
+                <span id="total">
+                    0,00
+                </span>
+                <button onclick="finalizarCompra()">Finalizar Compra</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /*
+        ========================================
+        LISTA DE PRODUTOS
+        ========================================
+        */
+
+        // Array de objetos: cada objeto guarda os dados de um produto.
+       const produtos = [
+
+            {
+                id: 1,
+                nome: "adidas Chuteira Messi X Speedflow.1 Firm Ground - futebol unissex",
+                preco: 4487.90,
+                imagem: "speedFlowMessi.jpg"
+            },
+
+            {
+                id: 2,
+                nome: "Chuteira Campo Língua Dobrável Predator Elite",
+                preco: 2499.99,
+                imagem: "AdidasPredator.jpg"
+            },
+
+            {
+                id: 3,
+                nome: "Nike Tiempo 10",
+                preco: 1063.00,
+                imagem: "nikeTiempo10.jpg"	
+            }
+
+        ];
+
+
+        /*
+        ========================================
+        CARRINHO
+        ========================================
+        */
+
+        // O carrinho é um array que será alterado durante a interação.
+        let carrinho = [];
+
+        function finalizarCompra() {
+            if (carrinho.length === 0) {
+                alert("O carrinho está vazio!");
+                return;
+            }
+
+            let mensagem = "Compra finalizada com sucesso!\n\nResumo da compra:\n";
+            let total = 0;
+
+            carrinho.forEach(item => {
+                const subtotal = item.preco * item.quantidade;
+                total += subtotal;
+                mensagem += `${item.nome} - Quantidade: ${item.quantidade} - Subtotal: R$ ${subtotal.toFixed(2).replace(".", ",")}\n`;
+            });
+
+            mensagem += `\nTotal: R$ ${total.toFixed(2).replace(".", ",")}`;
+            alert(mensagem);
+
+            // Limpar o carrinho após finalizar a compra
+            carrinho = [];
+            atualizarCarrinho();
+        }
+        /*
+        ========================================
+        ADICIONAR PRODUTO
+        ========================================
+        */
+
+        function adicionarProduto(id) {
+
+            // Procurar o produto pelo ID
+
+            // find() procura no array o produto correspondente ao ID.
+            const produto = produtos.find(
+                p => p.id === id
+            );
+
+
+            // Verificar se o produto já está no carrinho
+
+            // Verifica se esse produto já está no carrinho.
+            const item = carrinho.find(
+                p => p.id === id
+            );
+
+
+            if (item) {
+
+                // Se já existe, aumenta a quantidade
+
+                item.quantidade++;
+
+            } else {
+
+                // Se não existe, adiciona
+
+                // push() adiciona um novo objeto ao final do array.
+                carrinho.push({
+
+                    id: produto.id,
+
+                    nome: produto.nome,
+
+                    preco: produto.preco,
+
+                    imagem: produto.imagem,
+
+                    quantidade: 1
+
+                });
+
+            }
+
+
+            // Atualizar tela
+
+            atualizarCarrinho();
+
+        }
+
+
+        /*
+        ========================================
+        ATUALIZAR CARRINHO
+        ========================================
+        */
+
+        function atualizarCarrinho() {
+
+            const tabela =
+                document.getElementById("carrinho");
+
+
+            // Limpar tabela
+
+            // Limpa o conteúdo atual para reconstruir a tabela.
+            tabela.innerHTML = "";
+
+
+            /*
+            Criar uma linha para cada produto
+            */
+
+            // forEach() executa este bloco para cada item do carrinho.
+            carrinho.forEach(item => {
+
+                const linha =
+                    // Cria uma nova linha da tabela diretamente pelo JavaScript.
+                    document.createElement("tr");
+
+
+                // O subtotal é calculado com preço × quantidade.
+                const subtotal =
+                    item.preco * item.quantidade;
+
+
+                // Template literal permite montar HTML e inserir valores com ${}.
+                linha.innerHTML = `
+
+                    <td>
+
+                        <img
+                            src="${item.imagem}"
+                            alt="${item.nome}"
+                        >
+
+                    </td>
+
+                    <td>
+                        ${item.nome}
+                    </td>
+
+                    <td class="quantidade">
+
+                        <button
+                            onclick="diminuir(${item.id})"
+                        >
+                            -
+                        </button>
+
+                        ${item.quantidade}
+
+                        <button
+                            onclick="aumentar(${item.id})"
+                        >
+                            +
+                        </button>
+
+                    </td>
+
+                    <td>
+
+                        R$
+                        
+                        ${subtotal.toFixed(2).replace(".", ",")}
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="btnRemover"
+                            onclick="remover(${item.id})"
+                        >
+                            Excluir
+                        </button>
+
+                    </td>
+
+                `;
+
+
+                // Insere a linha criada dentro do <tbody>.
+                tabela.appendChild(linha);
+
+            });
+
+
+            calcularTotal();
+
+        }
+
+
+        /*
+        ========================================
+        AUMENTAR QUANTIDADE
+        ========================================
+        */
+
+        function aumentar(id) {
+
+            const item =
+                carrinho.find(
+                    p => p.id === id
+                );
+
+
+            item.quantidade++;
+
+
+            atualizarCarrinho();
+
+        }
+
+
+        /*
+        ========================================
+        DIMINUIR QUANTIDADE
+        ========================================
+        */
+
+        function diminuir(id) {
+
+            const item =
+                carrinho.find(
+                    p => p.id === id
+                );
+
+
+            if (item.quantidade > 1) {
+
+                item.quantidade--;
+
+            } else {
+
+                remover(id);
+
+                return;
+
+            }
+
+
+            atualizarCarrinho();
+
+        }
+
+
+        /*
+        ========================================
+        REMOVER PRODUTO
+        ========================================
+        */
+
+        function remover(id) {
+
+            // filter() cria um novo array sem o produto removido.
+            carrinho = carrinho.filter(
+                p => p.id !== id
+            );
+
+
+            atualizarCarrinho();
+
+        }
+
+
+        /*
+        ========================================
+        CALCULAR TOTAL
+        ========================================
+        */
+
+        function calcularTotal() {
+
+            let total = 0;
+
+
+            // forEach() executa este bloco para cada item do carrinho.
+            carrinho.forEach(item => {
+
+                total +=
+                    item.preco *
+                    item.quantidade;
+
+            });
+
+
+            // Busca no DOM o elemento que mostrará o total.
+            document.getElementById("total")
+                .textContent =
+                total
+                    .toFixed(2)
+                    .replace(".", ",");
+
+        }
+
+    </script>
+
+</body>
+</html>

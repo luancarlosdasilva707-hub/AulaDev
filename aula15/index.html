@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        .produto{
+            background-color: white;
+            width: 200px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        button{
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Minha loja</h1>
+    <p>Bem-Vindo á minha loja</p>
+
+    <div class="produto">
+        <h2>Camiseta</h2>
+        <p>R$ 50,00</p>
+
+        <button onclick="adicionarCarrinho()">
+            Adicionar ao carrinho
+        </button>
+    </div>
+
+    <h2>carrinho</h2>
+
+    <p>
+        Quantidade
+        <span id="quantidade">0</span>
+    </p>
+
+    <p>
+        Total: R$
+        <span id="total">0,00</span>
+    </p>
+    <button onclick="finalizarCompra()">Finalizar compra</button>
+    
+    <script>
+
+        let quantidade = 0;
+        let total = 0;
+
+        function adicionarCarrinho(){
+            quantidade++;
+            //quantidade = quantidade + 1;
+            total += 50;
+            //total = total + 50;
+
+            document.querySelector("#quantidade").innerHTML = quantidade;
+            document.querySelector("#total").innerHTML = total.toFixed(2).replace(".", ",");
+        }
+
+        function finalizarCompra(){
+            alert("Compra finalizada com sucesso!");
+            quantidade = 0;
+            total = 0;
+
+            document.querySelector("#quantidade").innerHTML = quantidade;
+            document.querySelector("#total").innerHTML = total.toFixed(2);
+        }
+
+        function finalizarCompra(){
+            alert("compra finalizada com sucesso!");
+        }
+
+    </script>
+</body>
+</html>

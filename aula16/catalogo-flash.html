@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Flash</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #222;
+        }
+
+        header {
+            /*
+                Trocamos o preto neutro do header por um vermelho,
+                a cor de identidade do Flash.
+            */
+            background: #b3121e;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+        }
+
+        header p {
+            margin: 0;
+            color: #ffe3a3;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .pesquisa {
+            margin-bottom: 25px;
+        }
+
+        .pesquisa input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .filmes {
+            display: grid;
+
+            /*
+                Mesma lógica do exemplo original: 3 colunas
+                de mesma largura.
+            */
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .filme {
+            background: white;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            transition: 0.3s;
+
+            /*
+                Uma borda amarela sutil ajuda a reforçar a
+                identidade visual do Flash nos cards.
+            */
+            border-bottom: 4px solid #ffd400;
+        }
+
+        .filme:hover {
+            transform: translateY(-5px);
+        }
+
+        .filme img {
+            width: 100%;
+            height: 320px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .info {
+            padding: 15px;
+        }
+
+        .info h2 {
+            margin: 0 0 8px;
+            font-size: 20px;
+        }
+
+        .info p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .nota {
+            font-weight: bold;
+            /*
+                Vermelho no lugar do preto padrão para destacar
+                a nota dentro do card.
+            */
+            color: #b3121e;
+        }
+
+        /* =========================
+           MODAL
+           ========================= */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-conteudo {
+            background: white;
+            max-width: 700px;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+            position: relative;
+
+            /*
+                Faixa amarela no topo do modal, lembrando o raio
+                do símbolo do Flash.
+            */
+            border-top: 6px solid #ffd400;
+        }
+
+        .modal-conteudo img {
+            width: 100%;
+            height: 350px;
+            object-fit: contain;
+        }
+
+        .modal-info {
+            padding: 20px;
+        }
+
+        .modal-info h2 {
+            margin-top: 0;
+            color: #b3121e;
+        }
+
+        .fechar {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 32px;
+            color: white;
+            cursor: pointer;
+            text-shadow: 0 1px 4px #000;
+        }
+
+        .sem-resultados {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+
+        /* =========================
+           RESPONSIVIDADE
+           ========================= */
+
+        @media (max-width: 800px) {
+            .filmes {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 550px) {
+            .filmes {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>⚡ Catálogo Flash</h1>
+        <p>Escolha uma edição para ver mais informações</p>
+    </header>
+
+    <main class="container">
+
+        <div class="pesquisa">
+            <input
+                type="text"
+                id="campoPesquisa"
+                placeholder="Pesquisar edição..."
+                onkeyup="pesquisarFilmes()"
+            >
+        </div>
+
+        <div class="filmes">
+
+            <div class="filme" data-nome="Flash: Renascimento"
+                 onclick="abrirFilme(this)">
+
+                <img src="flashRebirth.jpg"
+                     alt="Flash: Renascimento">
+
+                <div class="info">
+                    <h2>Flash: Renascimento</h2>
+                    <p>Origem</p>
+                    <p class="nota">⚡ 9,0</p>
+                </div>
+            </div>
+
+            <div class="filme" data-nome="Ponto de Ignição"
+                 onclick="abrirFilme(this)">
+
+                <img src="flashFlashPoint.jpg"
+                     alt="Ponto de Ignição">
+
+                <div class="info">
+                    <h2>Ponto de Ignição</h2>
+                    <p>Evento</p>
+                    <p class="nota">⚡ 9,4</p>
+                </div>
+            </div>
+
+            <div class="filme" data-nome="O Retorno do Flash"
+                 onclick="abrirFilme(this)">
+
+                <img src="FlashReturn.jpg"
+                     alt="O Retorno do Flash">
+
+                <div class="info">
+                    <h2>O Retorno do Flash</h2>
+                    <p>Arco clássico</p>
+                    <p class="nota">⚡ 8,5</p>
+                </div>
+            </div>
+
+            <div class="filme" data-nome="Velocidade Terminal"
+                 onclick="abrirFilme(this)">
+
+                <img src="FlashTerminalVelocity.jpg"
+                     alt="Velocidade Terminal">
+
+                <div class="info">
+                    <h2>Velocidade Terminal</h2>
+                    <p>Sacrifício</p>
+                    <p class="nota">⚡ 8,7</p>
+                </div>
+            </div>
+
+            <div class="filme" data-nome="O Botão"
+                 onclick="abrirFilme(this)">
+
+                <img src="FlashTheButton.jpg"
+                     alt="O Botão">
+
+                <div class="info">
+                    <h2>O Botão</h2>
+                    <p>Crossover</p>
+                    <p class="nota">⚡ 8,3</p>
+                </div>
+            </div>
+
+            <div class="filme" data-nome="Guerra da Velocidade"
+                 onclick="abrirFilme(this)">
+
+                <img src="FlashWarOfSpeed.jpg"
+                     alt="Guerra da Velocidade">
+
+                <div class="info">
+                    <h2>Guerra da Velocidade</h2>
+                    <p>Conflito entre corredores</p>
+                    <p class="nota">⚡ 8,0</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="semResultados" class="sem-resultados">
+            Nenhuma edição encontrada.
+        </div>
+
+    </main>
+
+
+    <div id="modal" class="modal" onclick="fecharModal(event)">
+
+        <div class="modal-conteudo">
+
+            <span class="fechar" onclick="fecharModal()">&times;</span>
+
+            <img id="modalImagem" src="" alt="">
+
+            <div class="modal-info">
+                <h2 id="modalTitulo"></h2>
+                <p id="modalGenero"></p>
+                <p id="modalNota"></p>
+                <p id="modalDescricao"></p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /*
+            Mesma estrutura de funções do exemplo original,
+            só que aplicada aos cards de quadrinhos do Flash.
+        */
+function abrirFilme(filme) {
+
+    const titulo = filme.querySelector("h2").textContent;
+    const genero = filme.querySelector(".info p").textContent;
+    const nota = filme.querySelector(".nota").textContent;
+    const imagem = filme.querySelector("img").src;
+
+    const descricoes = {
+        "Flash: Renascimento":
+            "Barry Allen, o Flash, precisa enfrentar uma ameaça que coloca sua vida e seu legado em risco. Esta edição apresenta uma nova fase do herói, explorando sua origem, seus poderes e os desafios de ser o homem mais rápido do mundo.",
+
+        "Ponto de Ignição":
+            "Barry Allen volta no tempo para impedir uma tragédia pessoal, mas sua decisão altera completamente a realidade. Em um mundo diferente e cheio de perigos, o Flash precisa encontrar uma maneira de restaurar o universo que conhece.",
+
+        "O Retorno do Flash":
+            "Após enfrentar grandes desafios, o Flash retorna para proteger Central City e seus habitantes. A história resgata elementos clássicos do herói, mostrando sua velocidade, determinação e a importância de seus aliados.",
+
+        "Velocidade Terminal":
+            "O Flash enfrenta uma situação extrema em que precisa ultrapassar seus próprios limites. Entre perigos, sacrifícios e decisões difíceis, ele descobre que ser um herói exige mais do que apenas velocidade.",
+
+        "O Botão":
+            "Um misterioso botão com o símbolo do sorriso conecta diferentes realidades e desperta acontecimentos inexplicáveis. O Flash se envolve em uma investigação que reúne heróis e revela segredos sobre o universo.",
+
+        "Guerra da Velocidade":
+            "Uma grande batalha entre velocistas ameaça o equilíbrio do mundo. O Flash precisa enfrentar adversários tão rápidos quanto ele e lutar para impedir que a Força de Aceleração seja usada para causar destruição."
+    };
+
+    document.getElementById("modalTitulo").textContent = titulo;
+
+    document.getElementById("modalGenero").textContent =
+        "Categoria: " + genero;
+
+    document.getElementById("modalNota").textContent = nota;
+
+    document.getElementById("modalImagem").src = imagem;
+
+    document.getElementById("modalDescricao").textContent =
+        descricoes[titulo] || "Descrição não disponível para esta edição.";
+
+    document.getElementById("modal").style.display = "flex";
+}
+
+        function fecharModal(event) {
+
+            if (
+                !event ||
+                event.target.id === "modal" ||
+                event.target.className === "fechar"
+            ) {
+                document.getElementById("modal").style.display = "none";
+            }
+        }
+
+        function pesquisarFilmes() {
+
+            const texto = document
+                .getElementById("campoPesquisa")
+                .value
+                .toLowerCase();
+
+            const filmes = document.querySelectorAll(".filme");
+
+            let encontrados = 0;
+
+            filmes.forEach(function(filme) {
+
+                const nome = filme.dataset.nome.toLowerCase();
+
+                if (nome.includes(texto)) {
+                    filme.style.display = "block";
+                    encontrados++;
+                } else {
+                    filme.style.display = "none";
+                }
+
+            });
+
+            if (encontrados === 0) {
+                document.getElementById("semResultados").style.display =
+                    "block";
+            } else {
+                document.getElementById("semResultados").style.display =
+                    "none";
+            }
+        }
+
+    </script>
+
+</body>
+</html>

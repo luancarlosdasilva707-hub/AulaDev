@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Filmes</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #222;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+        }
+
+        header p {
+            margin: 0;
+            color: #ccc;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .pesquisa {
+            margin-bottom: 25px;
+        }
+
+        .pesquisa input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .filmes {
+            display: grid;
+
+            /*
+                grid-template-columns define quantas colunas teremos no Grid.
+
+                repeat(3, 1fr):
+                - repeat(3) = repete a configuração 3 vezes.
+                - 1fr = uma fração do espaço disponível.
+
+                Portanto, teremos 3 colunas com a mesma largura.
+            */
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .filme {
+            background: white;
+
+            /*
+                Impede que o conteúdo ultrapasse os limites do card.
+
+                É especialmente importante aqui porque o efeito de
+                transformação da imagem pode fazer parte dela sair
+                visualmente do card.
+            */
+            overflow: hidden;
+
+            border-radius: 10px;
+
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+
+            cursor: pointer;
+
+            /*
+                Define uma animação suave para alterações nas propriedades.
+
+                0.3s = a animação dura 0,3 segundos.
+            */
+            transition: 0.3s;
+        }
+
+        .filme:hover {
+
+            /*
+                translateY movimenta o elemento verticalmente.
+
+                -5px significa subir 5 pixels.
+                O efeito acontece quando o mouse passa sobre o card.
+            */
+            transform: translateY(-5px);
+        }
+
+        .filme img {
+            width: 100%;
+            height: 320px;
+
+            /*
+                Faz a imagem preencher o espaço definido sem deformá-la.
+
+                Se a proporção da imagem for diferente da área disponível,
+                uma parte da imagem pode ser cortada.
+            */
+            object-fit: cover;
+
+            /*
+                display: block remove o comportamento padrão de elemento
+                inline da imagem, evitando pequenos espaços abaixo dela.
+            */
+            display: block;
+        }
+
+        .info {
+            padding: 15px;
+        }
+
+        .info h2 {
+            margin: 0 0 8px;
+            font-size: 20px;
+        }
+
+        .info p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .nota {
+            font-weight: bold;
+        }
+
+        /* =========================
+           MODAL
+           ========================= */
+
+        .modal {
+
+            /*
+                O modal começa escondido.
+
+                O JavaScript altera esse valor para "flex" quando
+                o usuário clica em um filme.
+            */
+            display: none;
+
+            /*
+                position: fixed prende o elemento à janela do navegador.
+
+                Dessa forma, o modal permanece cobrindo a tela mesmo
+                quando a página é rolada.
+            */
+            position: fixed;
+
+            /*
+                inset: 0 é uma forma abreviada de:
+
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+
+                Portanto, o modal ocupa toda a tela.
+            */
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.75);
+
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-conteudo {
+            background: white;
+
+            max-width: 700px;
+            width: 100%;
+
+            /*
+                Esconde qualquer conteúdo que ultrapasse os limites
+                da caixa.
+
+                Aqui ajuda a manter a imagem e o conteúdo dentro
+                das bordas arredondadas do modal.
+            */
+            overflow: hidden;
+
+            border-radius: 12px;
+
+            /*
+                position: relative cria uma referência para elementos
+                que utilizarem position: absolute dentro deste elemento.
+
+                O botão "X", por exemplo, será posicionado em relação
+                ao modal-conteudo.
+            */
+            position: relative;
+        }
+
+        .modal-conteudo img {
+            width: 100%;
+            height: 350px;
+
+            /*
+                Mantém a proporção visual da imagem enquanto ela
+                preenche a área de 350px de altura.
+            */
+            object-fit: cover;
+        }
+
+        .modal-info {
+            padding: 20px;
+        }
+
+        .modal-info h2 {
+            margin-top: 0;
+        }
+
+        .fechar {
+
+            /*
+                Permite posicionar o X em qualquer lugar do modal.
+
+                Como o elemento pai (.modal-conteudo) possui
+                position: relative, este elemento será posicionado
+                em relação a ele.
+            */
+            position: absolute;
+
+            /*
+                Distância do topo do modal.
+                O X ficará 10 pixels abaixo do topo.
+            */
+            top: 10px;
+
+            right: 15px;
+
+            font-size: 32px;
+            color: white;
+            cursor: pointer;
+
+            text-shadow: 0 1px 4px #000;
+        }
+
+        .sem-resultados {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+
+        /* =========================
+           RESPONSIVIDADE
+           ========================= */
+
+        /*
+            Quando a tela tiver no máximo 800px de largura,
+            diminuímos a quantidade de colunas de 3 para 2.
+
+            Isso melhora a visualização em tablets e telas menores.
+        */
+        @media (max-width: 800px) {
+
+            .filmes {
+                /*
+                    Agora os filmes ficam distribuídos em 2 colunas.
+                */
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /*
+            Quando a tela tiver no máximo 550px de largura,
+            usamos apenas uma coluna.
+
+            Assim os cards ficam um abaixo do outro em celulares.
+        */
+        @media (max-width: 550px) {
+
+            .filmes {
+                /*
+                    1fr = uma única coluna ocupando todo o espaço.
+                */
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🎬 Catálogo de Filmes</h1>
+        <p>Escolha um filme para ver mais informações</p>
+    </header>
+
+    <main class="container">
+
+        <div class="pesquisa">
+            <input
+                type="text"
+                id="campoPesquisa"
+                placeholder="Pesquisar filme..."
+                onkeyup="pesquisarFilmes()"
+            >
+        </div>
+
+        <div class="filmes">
+
+            <div class="filme" data-nome="Interestelar"
+                 onclick="abrirFilme(this)">
+
+                <img src="https://picsum.photos/500/700?random=1"
+                     alt="Interestelar">
+
+                <div class="info">
+                    <h2>Interestelar</h2>
+                    <p>Ficção científica</p>
+                    <p class="nota">⭐ 9,0</p>
+                </div>
+            </div>
+
+            <div class="filme" data-nome="O Batman"
+                 onclick="abrirFilme(this)">
+
+                <img src="https://picsum.photos/500/700?random=2"
+                     alt="O Batman">
+
+                <div class="info">
+                    <h2>O Batman</h2>
+                    <p>Ação</p>
+                    <p class="nota">⭐ 8,5</p>
+                </div>
+            </div>
+
+            <div class="filme" data-nome="Matrix"
+                 onclick="abrirFilme(this)">
+
+                <img src="https://picsum.photos/500/700?random=3"
+                     alt="Matrix">
+
+                <div class="info">
+                    <h2>Matrix</h2>
+                    <p>Ficção científica</p>
+                    <p class="nota">⭐ 8,7</p>
+                </div>
+            </div>
+
+            <div class="filme" data-nome="O Senhor dos Anéis"
+                 onclick="abrirFilme(this)">
+
+                <img src="https://picsum.photos/500/700?random=4"
+                     alt="O Senhor dos Anéis">
+
+                <div class="info">
+                    <h2>O Senhor dos Anéis</h2>
+                    <p>Fantasia</p>
+                    <p class="nota">⭐ 9,2</p>
+                </div>
+            </div>
+
+            <div class="filme" data-nome="Vingadores"
+                 onclick="abrirFilme(this)">
+
+                <img src="https://picsum.photos/500/700?random=5"
+                     alt="Vingadores">
+
+                <div class="info">
+                    <h2>Vingadores</h2>
+                    <p>Ação</p>
+                    <p class="nota">⭐ 8,0</p>
+                </div>
+            </div>
+
+            <div class="filme" data-nome="Toy Story"
+                 onclick="abrirFilme(this)">
+
+                <img src="https://picsum.photos/500/700?random=6"
+                     alt="Toy Story">
+
+                <div class="info">
+                    <h2>Toy Story</h2>
+                    <p>Animação</p>
+                    <p class="nota">⭐ 8,3</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="semResultados" class="sem-resultados">
+            Nenhum filme encontrado.
+        </div>
+
+    </main>
+
+
+    <!--
+        MODAL
+
+        Esta estrutura fica inicialmente escondida pelo CSS.
+        O JavaScript mostra o modal quando um filme é selecionado.
+    -->
+
+    <div id="modal" class="modal" onclick="fecharModal(event)">
+
+        <div class="modal-conteudo">
+
+            <span class="fechar" onclick="fecharModal()">&times;</span>
+
+            <img id="modalImagem" src="" alt="">
+
+            <div class="modal-info">
+                <h2 id="modalTitulo"></h2>
+                <p id="modalGenero"></p>
+                <p id="modalNota"></p>
+                <p id="modalDescricao"></p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /*
+            ==========================================
+            FUNÇÃO: abrirFilme()
+            ==========================================
+
+            Esta função é executada quando o usuário
+            clica em um dos cards de filme.
+
+            O parâmetro "filme" representa o elemento
+            HTML que foi clicado.
+        */
+
+        function abrirFilme(filme) {
+
+            /*
+                querySelector() procura dentro do elemento
+                "filme" um elemento que corresponda ao seletor.
+
+                Aqui estamos procurando o título <h2>.
+            */
+            const titulo = filme.querySelector("h2").textContent;
+
+
+            /*
+                Procuramos o primeiro <p> dentro da área .info.
+
+                textContent pega o texto que está dentro do elemento.
+            */
+            const genero = filme.querySelector(".info p").textContent;
+
+
+            /*
+                Procuramos o elemento que possui a classe .nota
+                para obter a nota do filme.
+            */
+            const nota = filme.querySelector(".nota").textContent;
+
+
+            /*
+                Procuramos a imagem do filme e pegamos seu endereço.
+
+                .src representa o endereço da imagem.
+            */
+            const imagem = filme.querySelector("img").src;
+
+
+            /*
+                getElementById() procura um elemento pelo seu ID.
+
+                textContent altera o texto que aparece dentro
+                do elemento.
+            */
+            document.getElementById("modalTitulo").textContent = titulo;
+
+
+            /*
+                Aqui estamos acrescentando o texto "Gênero:"
+                antes do gênero obtido do card.
+            */
+            document.getElementById("modalGenero").textContent =
+                "Gênero: " + genero;
+
+
+            /*
+                Colocamos a nota dentro do modal.
+            */
+            document.getElementById("modalNota").textContent = nota;
+
+
+            /*
+                Alteramos o atributo src da imagem grande.
+
+                Assim o modal mostra a mesma imagem clicada.
+            */
+            document.getElementById("modalImagem").src = imagem;
+
+
+            /*
+                Também podemos alterar o texto de um elemento
+                usando textContent.
+            */
+            document.getElementById("modalDescricao").textContent =
+                "Este é um exemplo de descrição do filme. " +
+                "Os alunos podem substituir este texto por informações reais.";
+
+
+            /*
+                style.display altera diretamente uma propriedade CSS.
+
+                O modal começa com display: none.
+
+                Ao colocar display: flex, ele passa a aparecer.
+            */
+            document.getElementById("modal").style.display = "flex";
+        }
+
+
+        /*
+            ==========================================
+            FUNÇÃO: fecharModal()
+            ==========================================
+
+            Esconde novamente a janela de detalhes.
+        */
+
+        function fecharModal(event) {
+
+            /*
+                event contém informações sobre o evento que aconteceu.
+
+                event.target representa o elemento que recebeu o clique.
+
+                Dessa forma, conseguimos fechar o modal quando:
+                - o usuário clica no fundo;
+                - o usuário clica no X.
+            */
+
+            if (
+                !event ||
+                event.target.id === "modal" ||
+                event.target.className === "fechar"
+            ) {
+
+                /*
+                    Voltamos o display para "none",
+                    escondendo o modal.
+                */
+                document.getElementById("modal").style.display = "none";
+            }
+        }
+
+
+        /*
+            ==========================================
+            FUNÇÃO: pesquisarFilmes()
+            ==========================================
+
+            É executada sempre que o usuário digita
+            alguma coisa no campo de pesquisa.
+        */
+
+        function pesquisarFilmes() {
+
+            /*
+                Pegamos o texto digitado pelo usuário.
+
+                value = conteúdo digitado no input.
+
+                toLowerCase() transforma tudo em letras minúsculas,
+                facilitando a comparação.
+            */
+            const texto = document
+                .getElementById("campoPesquisa")
+                .value
+                .toLowerCase();
+
+
+            /*
+                querySelectorAll() encontra todos os elementos
+                que possuem a classe .filme.
+
+                O resultado é uma lista de elementos.
+            */
+            const filmes = document.querySelectorAll(".filme");
+
+
+            /*
+                Variável para contar quantos filmes foram encontrados.
+            */
+            let encontrados = 0;
+
+
+            /*
+                forEach() percorre cada filme encontrado.
+
+                A função será executada uma vez para cada card.
+            */
+            filmes.forEach(function(filme) {
+
+                /*
+                    dataset.nome acessa o atributo:
+
+                    data-nome="Interestelar"
+
+                    do HTML.
+
+                    toLowerCase() deixa o texto em minúsculo.
+                */
+                const nome = filme.dataset.nome.toLowerCase();
+
+
+                /*
+                    includes() verifica se o texto pesquisado
+                    existe dentro do nome do filme.
+
+                    Exemplo:
+
+                    "bat".includes("bat") -> true
+                    "batman".includes("matrix") -> false
+                */
+                if (nome.includes(texto)) {
+
+                    /*
+                        Se encontrou o filme, mostramos o card.
+                    */
+                    filme.style.display = "block";
+
+                    encontrados++;
+
+                } else {
+
+                    /*
+                        Se não encontrou, escondemos o card.
+                    */
+                    filme.style.display = "none";
+                }
+
+            });
+
+
+            /*
+                Se nenhum filme foi encontrado,
+                mostramos a mensagem correspondente.
+            */
+            if (encontrados === 0) {
+
+                document.getElementById("semResultados").style.display =
+                    "block";
+
+            } else {
+
+                /*
+                    Se encontrou pelo menos um filme,
+                    escondemos a mensagem.
+                */
+                document.getElementById("semResultados").style.display =
+                    "none";
+            }
+        }
+
+    </script>
+
+</body>
+</html>

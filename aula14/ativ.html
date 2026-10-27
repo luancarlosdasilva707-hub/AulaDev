@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade Usando toggle</title>
+    <style>
+        .destaques{
+            background-color: black;
+            color: white;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <button id="destaques">Modo Destaques</button>
+
+    <h2 id="titulo">Bom dia</h2>
+    <p id="paragrafo">Está um belo dia hoje</p>
+<script>
+    const titulo = document.querySelector("#titulo");
+    const paragrafo = document.querySelector("#paragrafo");
+    const btn = document.querySelector("#destaques");
+     btn.addEventListener("click",
+        function() {
+            titulo.classList
+            .toggle("destaques");
+        });
+
+</script>
+    
+</body>
+</html>

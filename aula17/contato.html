@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Flash</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #222;
+        }
+
+        header {
+            background: #b3121e;
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 5px;
+        }
+
+        header p {
+            margin: 0 0 15px;
+            color: #ffe3a3;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: bold;
+            padding-bottom: 4px;
+            border-bottom: 3px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        header nav a:hover,
+        header nav a.ativo {
+            border-color: #ffd400;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+           
+            gap: 30px;
+        }
+
+        .caixa {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-bottom: 4px solid #ffd400;
+        }
+
+        .caixa h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 14px 0 6px;
+            font-size: 14px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        button[type="submit"] {
+            margin-top: 20px;
+            width: 100%;
+            background: #b3121e;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background: #8f0e18;
+        }
+
+        .mensagem-status {
+            display: none;
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .mensagem-status.sucesso {
+            display: block;
+            background: #e4f6e8;
+            color: #1e6b34;
+            border: 1px solid #b5e2c1;
+        }
+
+        .mensagem-status.erro {
+            display: block;
+            background: #fdeaea;
+            color: #a11d1d;
+            border: 1px solid #f3bcbc;
+        }
+
+        .info-contato p {
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .info-contato strong {
+            display: block;
+            color: #b3121e;
+        }
+
+        /* RESPONSIVIDADE */
+
+        @media (max-width: 700px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>⚡ Contato</h1>
+        <p>Fale com a equipe da Central do Flash</p>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="loja.html">Loja</a>
+            <a href="quadrinhos.html">Quadrinhos</a>
+            <a href="contato.html" class="ativo">Contato</a>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <div class="caixa">
+            <h2>Envie uma mensagem</h2>
+
+            <!--
+                onsubmit="return enviarFormulario(event)" chama a função
+                JavaScript assim que o usuário clica em "Enviar", e o
+                "return" garante que, se a função disser para não enviar
+                (retornar false), a página não tenta recarregar.
+            -->
+            <form id="formularioContato" onsubmit="return enviarFormulario(event)">
+
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" placeholder="Seu nome completo">
+
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="seuemail@exemplo.com">
+
+                <label for="assunto">Assunto</label>
+                <input type="text" id="assunto" placeholder="Sobre o que você quer falar?">
+
+                <label for="mensagem">Mensagem</label>
+                <textarea id="mensagem" placeholder="Escreva sua mensagem aqui..."></textarea>
+
+                <button type="submit">Enviar mensagem</button>
+
+                <div id="statusEnvio" class="mensagem-status"></div>
+
+            </form>
+        </div>
+
+  
+
+    </main>
+
+
+    <script>
+
+        /*
+            ========================================
+            FUNÇÃO: enviarFormulario()
+            ========================================
+
+            Executada quando o usuário envia o formulário de contato.
+            Como esta é uma página estática (sem um servidor por trás),
+            a função apenas valida os campos e simula o envio,
+            mostrando uma mensagem de confirmação na tela.
+
+            Retorna "false" para impedir que o formulário recarregue
+            a página (comportamento padrão do HTML), e "true" quando
+            tudo estiver certo.
+        */
+
+        function enviarFormulario(event) {
+
+            // Impede o comportamento padrão do formulário (recarregar a página).
+            event.preventDefault();
+
+            const nome = document.getElementById("nome").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const assunto = document.getElementById("assunto").value.trim();
+            const mensagem = document.getElementById("mensagem").value.trim();
+
+            const status = document.getElementById("statusEnvio");
+
+            // Validação simples: nenhum campo pode ficar vazio.
+            if (!nome || !email || !assunto || !mensagem) {
+
+                status.className = "mensagem-status erro";
+                status.textContent =
+                    "Por favor, preencha todos os campos antes de enviar.";
+
+                return false;
+            }
+
+            // Se passou pela validação, mostra a mensagem de sucesso.
+            status.className = "mensagem-status sucesso";
+            status.textContent =
+                "Mensagem enviada com sucesso! Em breve entraremos em contato, " +
+                nome + ".";
+
+            // Limpa o formulário para uma nova mensagem.
+            document.getElementById("formularioContato").reset();
+
+            return false;
+        }
+
+    </script>
+
+</body>
+</html>

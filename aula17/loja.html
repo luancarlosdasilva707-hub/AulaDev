@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Flash</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: #b3121e;
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 5px;
+        }
+
+        header p {
+            margin: 0 0 15px;
+            color: #ffe3a3;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: bold;
+            padding-bottom: 4px;
+            border-bottom: 3px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        header nav a:hover,
+        header nav a.ativo {
+            border-color: #ffd400;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        /* GRID DOS PRODUTOS */
+
+        .produtos {
+            display: grid;
+            /* Divide o grid em 3 colunas proporcionais. */
+            grid-template-columns: repeat(3, 1fr);
+            /* Define o espaço entre os cards. */
+            gap: 20px;
+        }
+
+        .produto {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            /* Cria uma sombra suave no card. */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+            /* Faixa amarela embaixo, mesma identidade das outras páginas. */
+            border-bottom: 4px solid #ffd400;
+        }
+
+        .produto img {
+            width: 100%;
+            height: 200px;
+            /* Preenche a área da imagem sem distorção. */
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .produto h3 {
+            margin: 15px 0 5px;
+            font-size: 17px;
+        }
+
+        .produto p.descricao {
+            font-size: 14px;
+            color: #666;
+            min-height: 42px;
+        }
+
+        .preco {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px;
+            color: #b3121e;
+        }
+
+        button {
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            /* Indica visualmente que o elemento é clicável. */
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btnAdicionar {
+            background: #b3121e;
+            color: white;
+            width: 100%;
+        }
+
+        .btnAdicionar:hover {
+            background: #8f0e18;
+        }
+
+        /* CARRINHO */
+
+        .carrinho-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            /* Faz as bordas da tabela se unirem. */
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        td img {
+            width: 60px;
+            height: 60px;
+            /* Preenche a área da imagem sem distorção. */
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        .quantidade button {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            background: #ddd;
+        }
+
+        .btnRemover {
+            background: #c62828;
+            color: white;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .total button {
+            background: #ffd400;
+            color: #222;
+            font-weight: bold;
+            margin-left: 12px;
+        }
+
+        .carrinho-vazio {
+            text-align: center;
+            color: #888;
+            padding: 20px;
+        }
+
+        /* RESPONSIVO */
+
+        /* Adapta o layout para telas menores. */
+        @media (max-width: 700px) {
+
+            .produtos {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th,
+            td {
+                padding: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>⚡ Loja Flash</h1>
+        <p>Pelúcias e itens colecionáveis do herói mais veloz</p>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="loja.html" class="ativo">Loja</a>
+            <a href="quadrinhos.html">Quadrinhos</a>
+            <a href="contato.html">Contato</a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <h2 id="produtos">Produtos</h2>
+
+        <div class="produtos" id="listaProdutos"></div>
+
+        <!-- CARRINHO -->
+
+        <div class="carrinho-box">
+
+            <h2 id="carrinho">Carrinho</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Foto</th>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+
+                <tbody id="corpoCarrinho">
+                    <!-- JavaScript irá inserir aqui -->
+                </tbody>
+
+            </table>
+
+            <p id="carrinhoVazio" class="carrinho-vazio">
+                Seu carrinho está vazio.
+            </p>
+
+            <div class="total">
+                Total:
+                R$
+                <span id="total">0,00</span>
+                <button onclick="finalizarCompra()">Finalizar Compra</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+      
+
+        const produtos = [
+
+            {
+                id: 1,
+                nome: "Pelúcia Flash Clássica",
+                descricao: "Pelúcia macia de 30cm com o uniforme vermelho clássico.",
+                preco: 89.90,
+                imagem: "flashPlush.webp"
+            },
+
+            {
+                id: 2,
+                nome: "Boneco Flash Speed Force",
+                descricao: "Versão com efeito brilhante simulando a Força de Aceleração.",
+                preco: 99.90,
+                imagem: "flashtoy.jpg"
+            },
+
+            {
+                id: 3,
+                nome: "Caneca do Cometa Escarlate",
+                descricao: "Caneca de cerâmica com o velocista.",
+                preco: 39.90,
+                imagem: "flashMug.jpg"
+            },
+
+            {
+                id: 4,
+                nome: "Boné do Flash",
+                descricao: "Boné ajustável com o símbolo bordado na frente.",
+                preco: 59.90,
+                imagem: "flashCap.jpg"
+            },
+
+            {
+                id: 5,
+                nome: "Miniatura Colecionável Flash",
+                descricao: "Miniatura Funko Pop, ideal para coleção.",
+                preco: 129.90,
+                imagem: "flashPop.webp"
+            },
+
+             {
+                id: 6,
+                nome: "Miniatura Colecionável Wally West",
+                descricao: "Miniatura Funko Pop, ideal para coleção.",
+                preco: 129.90,
+                imagem: "WallyPop.jpg"
+            },
+
+            {
+                id: 7,
+                nome: "Camiseta masculina The Flash",
+                descricao: "Camiseta 100% algodão com estampa do símbolo.",
+                preco: 69.90,
+                imagem: "flashShirt.jpg"
+            }
+
+        ];
+
+
+        let carrinho = [];
+
+
+        function renderizarProdutos() {
+
+            const container = document.getElementById("listaProdutos");
+
+            container.innerHTML = "";
+
+            produtos.forEach(function(produto) {
+
+                const card = document.createElement("div");
+                card.className = "produto";
+
+                card.innerHTML = `
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                    <h3>${produto.nome}</h3>
+                    <p class="descricao">${produto.descricao}</p>
+                    <p class="preco">
+                        R$ ${produto.preco.toFixed(2).replace(".", ",")}
+                    </p>
+                    <button class="btnAdicionar" onclick="adicionarProduto(${produto.id})">
+                        Adicionar ao carrinho
+                    </button>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+
+
+        function adicionarProduto(id) {
+
+            // find() procura no array o produto correspondente ao ID.
+            const produto = produtos.find(p => p.id === id);
+
+            // Verifica se esse produto já está no carrinho.
+            const item = carrinho.find(p => p.id === id);
+
+            if (item) {
+
+                // Se já existe, só aumenta a quantidade.
+                item.quantidade++;
+
+            } else {
+
+                // Se não existe, adiciona um novo item ao carrinho.
+                carrinho.push({
+                    id: produto.id,
+                    nome: produto.nome,
+                    preco: produto.preco,
+                    imagem: produto.imagem,
+                    quantidade: 1
+                });
+            }
+
+            atualizarCarrinho();
+        }
+
+
+        /*
+            ========================================
+            FUNÇÃO: atualizarCarrinho()
+            ========================================
+
+            Reconstrói a tabela do carrinho do zero a partir do
+            array "carrinho", e recalcula o total. É chamada
+            sempre que o carrinho muda (adicionar, aumentar,
+            diminuir ou remover um item).
+        */
+
+        function atualizarCarrinho() {
+
+            const tabela = document.getElementById("corpoCarrinho");
+            const mensagemVazio = document.getElementById("carrinhoVazio");
+
+            // Limpa o conteúdo atual para reconstruir a tabela.
+            tabela.innerHTML = "";
+
+            // Mostra a mensagem de "carrinho vazio" quando não há itens.
+            mensagemVazio.style.display = carrinho.length === 0 ? "block" : "none";
+
+            // forEach() executa este bloco para cada item do carrinho.
+            carrinho.forEach(function(item) {
+
+                const linha = document.createElement("tr");
+
+                // O subtotal é calculado com preço × quantidade.
+                const subtotal = item.preco * item.quantidade;
+
+                // Template literal permite montar HTML e inserir valores com ${}.
+                linha.innerHTML = `
+                    <td><img src="${item.imagem}" alt="${item.nome}"></td>
+                    <td>${item.nome}</td>
+                    <td class="quantidade">
+                        <button onclick="diminuir(${item.id})">-</button>
+                        ${item.quantidade}
+                        <button onclick="aumentar(${item.id})">+</button>
+                    </td>
+                    <td>R$ ${subtotal.toFixed(2).replace(".", ",")}</td>
+                    <td>
+                        <button class="btnRemover" onclick="remover(${item.id})">
+                            Excluir
+                        </button>
+                    </td>
+                `;
+
+                tabela.appendChild(linha);
+            });
+
+            calcularTotal();
+        }
+
+
+        /*
+            ========================================
+            FUNÇÃO: aumentar()
+            ========================================
+
+            Aumenta em 1 a quantidade do item cujo id foi passado
+            e atualiza a tabela do carrinho.
+        */
+
+        function aumentar(id) {
+
+            const item = carrinho.find(p => p.id === id);
+
+            item.quantidade++;
+
+            atualizarCarrinho();
+        }
+
+
+        /*
+            ========================================
+            FUNÇÃO: diminuir()
+            ========================================
+
+            Diminui em 1 a quantidade do item. Se a quantidade
+            chegar a 0, o item é removido do carrinho em vez de
+            ficar com quantidade negativa.
+        */
+
+        function diminuir(id) {
+
+            const item = carrinho.find(p => p.id === id);
+
+            if (item.quantidade > 1) {
+
+                item.quantidade--;
+
+            } else {
+
+                remover(id);
+                return;
+            }
+
+            atualizarCarrinho();
+        }
+
+
+        /*
+            ========================================
+            FUNÇÃO: remover()
+            ========================================
+
+            Remove o item do carrinho pelo id, criando um novo
+            array sem ele (filter não altera o array original).
+        */
+
+        function remover(id) {
+
+            carrinho = carrinho.filter(p => p.id !== id);
+
+            atualizarCarrinho();
+        }
+
+
+        /*
+            ========================================
+            FUNÇÃO: calcularTotal()
+            ========================================
+
+            Soma o subtotal (preço × quantidade) de todos os
+            itens do carrinho e escreve o resultado na tela.
+        */
+
+        function calcularTotal() {
+
+            let total = 0;
+
+            carrinho.forEach(function(item) {
+                total += item.preco * item.quantidade;
+            });
+
+            document.getElementById("total").textContent =
+                total.toFixed(2).replace(".", ",");
+        }
+
+
+        /*
+            ========================================
+            FUNÇÃO: finalizarCompra()
+            ========================================
+
+            Confere se o carrinho não está vazio, monta um resumo
+            da compra e mostra em um alert. Depois, esvazia o
+            carrinho e atualiza a tela.
+        */
+
+        function finalizarCompra() {
+
+            if (carrinho.length === 0) {
+                alert("O carrinho está vazio!");
+                return;
+            }
+
+            let mensagem = "Compra finalizada com sucesso!\n\nResumo da compra:\n";
+            let total = 0;
+
+            carrinho.forEach(function(item) {
+
+                const subtotal = item.preco * item.quantidade;
+                total += subtotal;
+
+                mensagem += `${item.nome} - Quantidade: ${item.quantidade} - Subtotal: R$ ${subtotal.toFixed(2).replace(".", ",")}\n`;
+            });
+
+            mensagem += `\nTotal: R$ ${total.toFixed(2).replace(".", ",")}`;
+
+            alert(mensagem);
+
+            // Esvazia o carrinho após finalizar a compra.
+            carrinho = [];
+            atualizarCarrinho();
+        }
+
+
+        // Monta a vitrine assim que a página carrega.
+        renderizarProdutos();
+
+    </script>
+
+</body>
+</html>

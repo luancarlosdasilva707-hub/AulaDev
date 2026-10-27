@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>catalogo</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #ffffff;
+            text-align: center;
+        }
+        .produto{
+            background-color: white;
+            width: 200px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        button{
+            background-color: #01a2ff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: #007dd1;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Nossos Produtos</h1>
+
+    <p>Bem-vindo à minha loja online!</p>
+
+    <div class="produto">
+        <h2>PLAY 5</h2>
+        <p>R$4,000</p>
+
+        <button onclick="adicionarCarrinhoPS5()">Adicionar ao carrinho</button>
+    </div>
+    <div class="produto">
+        <h2>RTX 5090</h2>
+        <p>R$27000,00</p>
+
+        <button onclick="adicionarCarrinhoRTX()">Adicionar ao carrinho</button>
+    </div>
+    <div class="produto">
+        <h2>Microsoft Xbox Series S 512gb Standard Cor Branco </h2>
+        <p>R$3000,00</p>
+
+        <button onclick="adicionarCarrinhoXbox()">Adicionar ao carrinho</button>
+    </div>
+    <div class="produto">
+        <h2>Guitarra Elétrica Epiphone Les Paul Standard 50's Gold Top Destro</h2>
+        <p>R$6.816,55</p>
+
+        <button onclick="adicionarCarrinhoLesPaul()">Adicionar ao carrinho</button>
+    </div>
+        <div class="produto">
+        <h2>Geladeira Multidoor Im8s Inverter 590 Litros Inox</h2>
+        <p>R$ 6.733,05</p>
+
+        <button onclick="adicionarCarrinhoGeladeira()">Adicionar ao carrinho</button>
+    </div>
+    
+
+    <h2>Carrinho</h2>
+    <p>
+        Quantidade:
+        <span id="quantidade">0</span>
+    </p>
+
+    <p>
+        TOTAL: R$
+        <span id="total">0,00</span>
+    </p>
+
+    
+    <button onclick="finalizarCompra()">Finalizar Compra</button><button onclick="limparCarrinho()">Limpar carrinho</button>
+    
+    <h3 onclick="location.href='index.html'" style="cursor:pointer;color:rgb(97, 80, 80)">Voltar</h3>
+    <script>
+        let quantidade = 0;
+        let total = 0;
+
+        function retirar(){
+            if(total >= 0){
+                quantidade = quantidade - 1;
+                total = total - totalAtual;
+
+                document.getElementById("quantidade").innerText = quantidade;
+
+                document.getElementById("total").innerText = total.toFixed(2).replace(".", ",");
+            }
+            else{
+                alert("Não é possível retirar itens do carrinho, pois ele está vazio.");
+            }
+        }
+
+
+        function adicionarCarrinhoPS5(){
+            quantidade = quantidade + 1;
+            totalAtual = total
+            total = total + 4000;
+            
+
+            document.getElementById("quantidade").innerText = quantidade;
+
+            document.getElementById("total").innerText = total.toFixed(2).replace(".", ",");
+        }
+        function adicionarCarrinhoRTX(){
+            quantidade = quantidade + 1;
+            totalAtual = total
+            total = total + 27000;
+            
+
+            document.getElementById("quantidade").innerText = quantidade;
+
+            document.getElementById("total").innerText = total.toFixed(2).replace(".", ",");
+        }
+        function adicionarCarrinhoXbox(){
+            quantidade = quantidade + 1;
+            totalAtual = total
+            total = total + 3000;
+            
+
+            document.getElementById("quantidade").innerText = quantidade;
+
+            document.getElementById("total").innerText = total.toFixed(2).replace(".", ",");
+        }
+        function adicionarCarrinhoLesPaul(){
+            quantidade = quantidade + 1;
+            totalAtual = total
+            total = total + 6816.55;
+
+            document.getElementById("quantidade").innerText = quantidade;
+
+            document.getElementById("total").innerText = total.toFixed(2).replace(".", ",");
+        }
+
+        function adicionarCarrinhoGeladeira(){
+            quantidade = quantidade + 1;
+            totalAtual = total
+            total = total + 6733.05;
+            
+
+            document.getElementById("quantidade").innerText = quantidade;
+
+            document.getElementById("total").innerText = total.toFixed(2).replace(".", ",");
+        }
+
+       
+        function finalizarCompra(){
+            alert("Compra finalizada! total: R$ " + total.toFixed(2).replace(".", ","));
+        }
+
+        function limparCarrinho(){
+            quantidade = 0;
+            total = 0;
+
+            document.getElementById("quantidade").innerText = quantidade;
+            document.getElementById("total").innerText = total.toFixed(2).replace(".", ",");
+        }
+
+    </script>
+
+
+</body>
+</html>
